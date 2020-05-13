@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: us-east-1b-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx-us-east-1b
+        image: nginx
+        resources:
+          requests:
+            memory: "800Mi"
+            cpu: "800m"
+          limits:
+            memory: "1700Mi"
+            cpu: "1700m" 
+      nodeSelector:
+        topology.kubernetes.io/zone: us-east-1b
