@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cuda-vector-add-deploy
+spec:
+  selector:
+    matchLabels:
+      app: cuda
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cuda
+    spec:
+        restartPolicy: Always      
+        containers:
+        - name: cuda-vector-add-container
+          image: k8s.gcr.io/cuda-vector-add:v0.1
+          resources:
+            requests:
+              memory: "700Mi"
+              cpu: "256m"
+            limits:
+              nvidia.com/gpu: 1
+        nodeSelector:
+          env: gpu
+        tolerations:
+          - effect: NoSchedule
+            operator: Exists

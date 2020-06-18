@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tesnorflow-gpu-jupyter
+spec:
+  selector:
+    matchLabels:
+      app: tesnorflow-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tesnorflow-app
+    spec:
+        restartPolicy: Always      
+        containers:
+        - name: tesnorflow-jupyter-container
+          image: tensorflow/tensorflow:latest-gpu-jupyter
+          resources:
+            requests:
+              memory: "700Mi"
+              cpu: "256m"
+            limits:
+              nvidia.com/gpu: 1
+        nodeSelector:
+          env: gpu
+        tolerations:
+          - effect: NoSchedule
+            operator: Exists
