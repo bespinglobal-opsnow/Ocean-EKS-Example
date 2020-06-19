@@ -6,6 +6,6 @@ with the following user data.
 #!/bin/bash
 wget https://github.com/tsenart/vegeta/releases/download/v12.8.3/vegeta-12.8.3-linux-amd64.tar.gz
 tar xzvf vegeta-12.8.3-linux-amd64.tar.gz
-echo "GET {{Copy and Paste here the External IP Address of the exposed service}}" | ./vegeta attach -rate 1000 -duration=600s | tee results.bin | ./vegeta report
+echo "GET http://a2db514753b7d4a98b3afbe343cb4137-1468860397.us-east-1.elb.amazonaws.com/" | ./vegeta attack -rate 1000 -duration=600s | tee results.bin | ./vegeta report
 shutdown now
 --------- User Data Ends -------
